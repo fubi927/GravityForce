@@ -6,11 +6,12 @@ using UnityEngine;
 
 public class CollisionScript : MonoBehaviour
 {
-    public CollisionScript collision;
+    public PlayerMovement playermovement;
+
     // Start is called before the first frame update
     void Start()
     {
-        collision = GameObject.FindGameObjectWithTag("collision").GetComponent<CollisionScript>();
+        playermovement = GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -18,9 +19,30 @@ public class CollisionScript : MonoBehaviour
     {
         
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Console.WriteLine("Collision detected");
+        if (collision.gameObject.CompareTag("collision"))
+        {
+            Debug.Log("Collision detected");
+        }
+        if (collision.gameObject.CompareTag("item"))
+        {
+            Destroy(collision.gameObject);
+            Debug.Log("Item collected");
+        }
+        if (collision.gameObject.CompareTag("fuel"))
+        {
+            if (playermovement.fuel < 50)
+            {
+                playermovement.fuel += 50;
+            }
+            else
+            {
+                playermovement.fuel = 100;
+            }
+            
+            Debug.Log("Fuel collected");
+            Destroy(collision.gameObject);
+        }
     }
 }

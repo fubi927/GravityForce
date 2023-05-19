@@ -6,8 +6,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D ship;
+    public float fuel;
 
-    private Vector2 fwdSpeed = new Vector2(0, 8);
     private float angle;
     public float rotationSpeed;
 
@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         ship = GetComponent<Rigidbody2D>();
+        fuel = 100;
     }
 
     // Update is called once per frame
@@ -22,7 +23,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            Forward();
+            if (fuel > 0)
+            {
+                Forward();
+                fuel -= 0.01f;
+            }
+            if (fuel < 0)
+            {
+                fuel = 0;
+            }
         }
         if (Input.GetKey(KeyCode.A))
         {
@@ -33,20 +42,11 @@ public class PlayerMovement : MonoBehaviour
             angle += -Time.deltaTime * rotationSpeed;
         }
         transform.rotation = Quaternion.Euler(0, 0, angle);
-
     }
 
     private void Forward()
     {
-        Vector2 fwd = transform.up;
-        ship.AddForce(fwd);
+            Vector2 fwd = transform.up;
+            ship.AddForce(fwd);
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("collision"))
-        {
-            Debug.Log("Collision detected");
-        }
-    }
-
 }
