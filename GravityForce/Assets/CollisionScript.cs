@@ -44,5 +44,7 @@ public class CollisionScript : MonoBehaviour
             Debug.Log("Fuel collected");
             Destroy(collision.gameObject);
         }
+        // WaitForEndOfFrame notwendig, da das Objekt erst beim nächsten Frame destroyed wird und das Objekt somit mehrfach eingesammelt werden kann
+        new WaitForEndOfFrame();
     }
 }

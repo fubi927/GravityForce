@@ -6,16 +6,20 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D ship;
-    public float fuel;
+    public float fuel = 100;
+    public int fuelFactor;
+    public float rotationSpeed;
+    public AudioSource audioThrust;
 
     private float angle;
-    public float rotationSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
         ship = GetComponent<Rigidbody2D>();
-        fuel = 100;
+        audioThrust.volume = 0;
+        audioThrust.loop = true;
+        audioThrust.Play();
     }
 
     // Update is called once per frame
@@ -26,13 +30,20 @@ public class PlayerMovement : MonoBehaviour
             if (fuel > 0)
             {
                 Forward();
-                fuel -= 0.01f;
+                fuel -= Time.deltaTime * fuelFactor;
+                audioThrust.volume = 1;
             }
-            if (fuel < 0)
+            else if (fuel < 0)
             {
                 fuel = 0;
+                audioThrust.volume = 0;
             }
         }
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            audioThrust.volume = 0;
+        }
+        
         if (Input.GetKey(KeyCode.A))
         {
             angle += Time.deltaTime * rotationSpeed;
