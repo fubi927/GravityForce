@@ -23,7 +23,15 @@ public class CollisionScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("collision"))
         {
-            Debug.Log("Collision detected");
+            Debug.Log("Typ: " + collision.otherCollider.GetType().ToString());
+            if (collision.otherCollider.GetType().ToString() == "UnityEngine.BoxCollider2D")
+            {
+                Debug.Log("normale Landung");
+            }
+            else
+            {
+                Debug.Log("Kaputt");
+            }
         }
         if (collision.gameObject.CompareTag("item"))
         {

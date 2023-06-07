@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D ship;
-    public ParticleSystem fireParticle;
     public float fuel = 100;
     public int fuelFactor;
     public float rotationSpeed;
@@ -36,11 +35,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 fuel = 0;
                 audioThrust.volume = 0;
-                fireParticle.Stop();
-            }
-            else
-            {
-                fireParticle.Stop();
             }
         }
         if (Input.GetKeyUp(KeyCode.W))
@@ -65,6 +59,5 @@ public class PlayerMovement : MonoBehaviour
         ship.AddForce(fwd);
         fuel -= Time.deltaTime * fuelFactor;
         audioThrust.volume = 1;
-        fireParticle.Play();
     }
 }
