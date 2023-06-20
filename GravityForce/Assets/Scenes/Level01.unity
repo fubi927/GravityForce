@@ -1959,7 +1959,7 @@ Transform:
   m_Children:
   - {fileID: 628658456}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1247388280
 GameObject:
@@ -2387,6 +2387,7 @@ MonoBehaviour:
   ship: {fileID: 0}
   fuel: 100
   fuelFactor: 2
+  fuelText: {fileID: 2069244837}
   rotationSpeed: 200
   audioThrust: {fileID: 1791960705}
 --- !u!60 &1791960709
@@ -2504,7 +2505,7 @@ Transform:
   m_Children:
   - {fileID: 1247388281}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2069244834
 GameObject:

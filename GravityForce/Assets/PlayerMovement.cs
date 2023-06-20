@@ -1,13 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D ship;
     public float fuel = 100;
     public int fuelFactor;
+    public Text fuelText;
     public float rotationSpeed;
     public AudioSource audioThrust;
 
@@ -21,10 +24,19 @@ public class PlayerMovement : MonoBehaviour
         audioThrust.loop = true;
         audioThrust.Play();
     }
-
+    int frames = 10;
     // Update is called once per frame
     void Update()
     {
+        if (frames <= 0)
+        { 
+            UpdateFuelText();
+            frames = 10;
+        }else
+        {
+            frames--;
+        }
+
         if (Input.GetKey(KeyCode.W))
         {
             if (fuel > 0)
@@ -59,5 +71,10 @@ public class PlayerMovement : MonoBehaviour
         ship.AddForce(fwd);
         fuel -= Time.deltaTime * fuelFactor;
         audioThrust.volume = 1;
+    }
+
+    private void UpdateFuelText()
+    {
+        fuelText.text = "Fuel: " + (int)fuel;
     }
 }
