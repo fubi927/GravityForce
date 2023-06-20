@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource audioThrust;
 
     private float angle;
+    private int frames = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
         audioThrust.loop = true;
         audioThrust.Play();
     }
-    int frames = 10;
     // Update is called once per frame
     void Update()
     {
@@ -67,10 +67,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Forward()
     {
-        Vector2 fwd = transform.up;
+        Vector2 fwd = Time.deltaTime * transform.up;
         ship.AddForce(fwd);
         fuel -= Time.deltaTime * fuelFactor;
-        audioThrust.volume = 1;
+        audioThrust.volume = 0.7f;
     }
 
     private void UpdateFuelText()
